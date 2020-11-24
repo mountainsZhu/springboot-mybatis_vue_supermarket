@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zss.dao.ProviderDao">
+    <select id="selectAllProvider" resultType="provider">
+        select * from provider;
+    </select>
+
+    <select id="selectProviderByName" resultType="provider">
+        select * from provider where providername = #{providername};
+    </select>
+
+    <insert id="insertProvider">
+        insert into provider values (uuid(),#{providername},#{phone},#{address},#{email});
+    </insert>
+
+    <delete id="deleteProvider">
+        delete from provider where providername = #{providername};
+    </delete>
+
+    <update id="updateProvider">
+        update provider
+        <set>
+            <if test="providername!=null">
+                providername = #{providername},
+            </if>
+            <if test="phone!=null">
+                phone = #{phone},
+            </if>
+            <if test="address!=null">
+                address = #{address},
+            </if>
+            <if test="email!=null">
+                email = #{email}
+            </if>
+        </set>
+        where providername = #{providername}
+    </update>
+</mapper>

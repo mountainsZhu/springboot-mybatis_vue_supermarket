@@ -1,0 +1,16 @@
+server:
+  port: 9000
+mybatis:
+  #自动定位实体类
+  type-aliases-package: com.zss.po
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+spring:
+  jackson:
+    date-format: yyyy-MM-dd
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: admin
+    url: jdbc:mysql://localhost/supermarket2?useSSL=true&characterEncoding=UTF8&serverTimezone=Asia/Shanghai

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zss.dao.InStoreDao">
+
+    <select id="selectInstore" resultType="instore">
+        select * from instore where
+            inname like CONCAT('%',#{inname},'%') and
+            DATE_FORMAT(intime, '%Y-%m-%d') LIKE CONCAT('%',#{intime},'%') and
+            infactory like CONCAT('%',#{infactory},'%')
+    </select>
+
+    <insert id="inStore" parameterType="store">
+        insert into instore values (uuid(),#{inname},#{inamount},#{intime},#{inprice},#{infactory});
+    </insert>
+
+</mapper>

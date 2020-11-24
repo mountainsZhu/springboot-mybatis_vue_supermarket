@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zss.dao.StoreDao">
+    <select id="selectAllStore" resultType="store">
+        select * from store where
+        storetime like CONCAT('%',#{storetime},'%') and
+        storename like CONCAT('%',#{storename},'%');
+    </select>
+
+    <select id="selectAllStore2" resultType="store">
+        select * from store;
+    </select>
+
+    <update id="upProduct">
+        update store
+        <set>
+            isup = 1
+        </set>
+        where storename = #{storeName};
+    </update>
+
+    <update id="downProduct">
+        update store
+        <set>
+            isup = 0
+        </set>
+        where storename = #{storeName};
+    </update>
+
+    <select id="isUpper" resultType="store">
+        select * from store where amount &gt; upperlimit;
+    </select>
+
+    <select id="isLower" resultType="store">
+        select * from store where amount &lt; lowerlimit;
+    </select>
+
+    <update id="updateUpper">
+        update store
+        <set>
+            <if test="upperlimit!=null">
+                upperlimit = #{upperlimit}
+            </if>
+        </set>
+        where storename = #{storeName};
+    </update>
+
+    <update id="updateLower">
+        update store
+        <set>
+            <if test="lowerlimit!=null">
+                lowerlimit = #{lowerlimit}
+            </if>
+        </set>
+        where storename = #{storeName};
+    </update>
+
+    <update id="handleBadStore">
+        update store
+        <set>
+            amount = amount - #{handleamount},
+            badamount = badamount - #{handleamount}
+        </set>
+        where storename = #{storeName};
+    </update>
+
+    <update id="updateStore">
+        update store
+        <set>
+            amount = amount + #{amount},
+            storetime = #{storetime}
+        </set>
+        where storename = #{storeName};
+    </update>
+
+    <insert id="insertStore">
+        insert into store (storeid,storetime,storename,amount)
+        values (uuid(),#{storetime},#{storename},#{amount})
+    </insert>
+
+    <select id="selectAllBadStore" resultType="store">
+        select * from store where badamount > 0;
+    </select>
+
+</mapper>

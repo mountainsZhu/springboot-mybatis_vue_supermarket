@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zss.dao.SinglesaleDao">
+    <select id="selectAllSinglesale" resultType="singlesale">
+        select * from singlesale;
+    </select>
+
+    <select id="selectSinglesale" resultMap="singlesale1">
+        select s.saletime stime,s.salename sname,s.saleamount samount,p.orignalprice oprice,p.promoteprice pprice
+        from singlesale s,product p
+        where s.salename = p.productname and
+            DATE_FORMAT(s.saletime, '%Y-%m-%d') LIKE CONCAT('%',#{time},'%')
+    </select>
+
+    <resultMap id="singlesale1" type="Singlesale">
+        <result property="saletime" column="stime"/>
+        <result property="salename" column="sname"/>
+        <result property="saleamount" column="samount"/>
+        <association property="product" javaType="Product">
+            <result property="orignalprice" column="oprice"/>
+            <result property="promoteprice" column="pprice"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertSingle">
+        insert into singlesale values (uuid(),#{salename},#{saleamount},now(),#{saleprice},#{sumprice})
+    </insert>
+</mapper>

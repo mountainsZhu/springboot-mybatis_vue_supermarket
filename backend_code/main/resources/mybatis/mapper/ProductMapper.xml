@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zss.dao.ProductDao">
+
+    <select id="selectAllProduct" resultType="product">
+        select * from product;
+    </select>
+
+    <select id="selectProductByName" resultType="product">
+        select * from product where productname = #{productname};
+    </select>
+
+    <insert id="insertProduct" parameterType="product">
+        insert into product values (uuid(),#{productname},#{orignalprice},#{promoteprice},#{factory},#{createdate},#{guarantee});
+    </insert>
+
+    <delete id="deleteProduct">
+        delete from product where productname = #{productname};
+    </delete>
+
+    <update id="updateProduct">
+        update product
+        <set>
+            <if test="orignalprice!=null">
+                orignalprice = #{orignalprice},
+            </if>
+            <if test="promoteprice!=null">
+                promoteprice = #{promoteprice},
+            </if>
+            <if test="factory!=null">
+                factory = #{factory},
+            </if>
+            <if test="createdate!=null">
+                createdate = #{createdate},
+            </if>
+            <if test="guarantee!=null">
+                guarantee = #{guarantee},
+            </if>
+        </set>
+        where productname = #{productname}
+    </update>
+
+    <select id="selectPriceByProductName" resultType="Float">
+        select promoteprice from product where productname = #{productname};
+    </select>
+</mapper>

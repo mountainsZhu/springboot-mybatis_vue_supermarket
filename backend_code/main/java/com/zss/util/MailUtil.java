@@ -9,9 +9,9 @@ import java.util.Date;
 import java.util.Properties;
 
 public class MailUtil {
-    private static String myEmailAccount="1250913438@qq.com";//发件人
+    private static String myEmailAccount="your—email";//发件人，输入要发送的邮箱
     private static String myEmailPassword="hjwhrxfcunsggfda";//保护码
-    private static String myEmailSMTPHost="smtp.qq.com";
+    private static String myEmailSMTPHost="smtp.qq.com";//如果是QQ邮箱输入这个
     private static String receiveMailAccount="";//收件人
     private static String smtpPort="465";
 
